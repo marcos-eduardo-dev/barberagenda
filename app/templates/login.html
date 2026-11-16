@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block title %}Entrar · BarberAgenda{% endblock %}
+{% block conteudo %}
+<section class="cartao login">
+  <h1>✂ BarberAgenda</h1>
+  <p class="sub">Acesso restrito à equipe da barbearia</p>
+  <form method="post">
+    <label>Login <input name="login" id="login" required autofocus></label>
+    <label>Senha <input name="senha" id="senha" type="password" required></label>
+    <button type="submit">Entrar</button>
+  </form>
+</section>
+{% endblock %}

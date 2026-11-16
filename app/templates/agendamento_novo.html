@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% block title %}Novo agendamento · BarberAgenda{% endblock %}
+{% block conteudo %}
+<section class="cartao estreito">
+  <h2>Novo agendamento</h2>
+  <form method="post" novalidate>
+    <label>Cliente *
+      <select name="id_cliente" id="id_cliente">
+        <option value="">Selecione...</option>
+        {% for c in clientes %}
+        <option value="{{ c.id_cliente }}" {{ 'selected' if form.get('id_cliente')|string == c.id_cliente|string }}>{{ c.nome }} · {{ c.telefone|fone }}</option>
+        {% endfor %}
+      </select>
+    </label>
+    <label>Serviço *
+      <select name="id_servico" id="id_servico">
+        <option value="">Selecione...</option>
+        {% for s in servicos %}
+        <option value="{{ s.id_servico }}" {{ 'selected' if form.get('id_servico')|string == s.id_servico|string }}>{{ s.nome }} · {{ s.duracao_min }} min · {{ s.preco|reais }}</option>
+        {% endfor %}
+      </select>
+    </label>
+    <label>Profissional *
+      <select name="id_profissional" id="id_profissional">
+        <option value="">Selecione...</option>
+        {% for p in profissionais %}
+        <option value="{{ p.id_profissional }}" {{ 'selected' if form.get('id_profissional')|string == p.id_profissional|string }}>{{ p.nome }} · {{ p.especialidade }}</option>
+        {% endfor %}
+      </select>
+    </label>
+    <div class="linha">
+      <label>Data * <input type="date" name="data" id="data" value="{{ form.get('data', '') }}"></label>
+      <label>Hora * <input type="time" name="hora" id="hora" step="900" value="{{ form.get('hora', '') }}"></label>
+    </div>
+    <label>Observação <input name="observacao" id="observacao" maxlength="200" value="{{ form.get('observacao', '') }}"></label>
+    <p class="dica">Funcionamento: 09:00 às 19:00. O sistema não deixa marcar dois clientes no mesmo horário com o mesmo profissional.</p>
+    <button type="submit">Confirmar agendamento</button>
+  </form>
+</section>
+{% endblock %}

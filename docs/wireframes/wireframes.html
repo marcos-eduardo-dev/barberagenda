@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="pt-BR"><head><meta charset="utf-8"><title>Wireframes BarberAgenda</title>
+<style>
+body { font-family: "Comic Sans MS", "Segoe Print", sans-serif; background: #ddd; margin: 0; padding: 20px; }
+.tela { width: 900px; background: #fff; border: 2px solid #333; margin: 0 0 30px; }
+.barra { background: #eee; border-bottom: 2px solid #333; padding: 6px 12px; font-size: 13px; color: #555; }
+.barra::before { content: "● ● ●  "; color: #999; }
+.conteudo { padding: 20px 26px; min-height: 380px; position: relative; }
+.menu { display: flex; gap: 10px; border: 2px dashed #888; padding: 8px; margin-bottom: 18px; font-size: 14px; }
+.menu span { border: 1.5px solid #555; padding: 3px 10px; } .menu .sel { background: #ccc; }
+.menu .dir { margin-left: auto; border: 0; color: #666; }
+h3 { margin: 0 0 14px; font-size: 20px; }
+.campo { margin-bottom: 12px; font-size: 14px; }
+.campo div { border: 1.5px solid #555; height: 30px; margin-top: 3px; background: #fafafa; color: #999; padding: 5px 8px; box-sizing: border-box; font-size: 13px; }
+.campo div.sel::after { content: "▼"; float: right; color: #555; }
+.btn { display: inline-block; border: 2px solid #333; background: #bbb; padding: 7px 18px; font-weight: bold; font-size: 14px; }
+.btn.claro { background: #fff; }
+table { border-collapse: collapse; width: 100%; font-size: 13px; }
+th, td { border: 1.5px solid #555; padding: 6px; text-align: left; } th { background: #ddd; }
+.nota { position: absolute; background: #fff7a8; border: 1px solid #c9b800; padding: 6px 9px; font-size: 12px; width: 190px; transform: rotate(2deg); box-shadow: 2px 2px 3px rgba(0,0,0,.2); }
+.x { color: #999; } .linha { display: flex; gap: 14px; } .linha .campo { flex: 1; }
+.cols { display: flex; gap: 24px; } .cols > div:first-child { width: 300px; } .cols > div:last-child { flex: 1; }
+.msg { border: 1.5px dashed #555; padding: 6px; font-size: 13px; margin-bottom: 12px; }
+</style></head><body>
+
+<div class="tela" id="wf1"><div class="barra">Tela 1 – Login</div><div class="conteudo">
+  <div style="width:320px;margin:30px auto;border:2px solid #333;padding:22px">
+    <h3 style="text-align:center">✂ BarberAgenda</h3>
+    <div class="campo">Login<div>usuário</div></div>
+    <div class="campo">Senha<div>••••••</div></div>
+    <div class="btn" style="width:100%;text-align:center;box-sizing:border-box">ENTRAR</div>
+  </div>
+  <div class="nota" style="right:40px;top:60px">Login ou senha errados → mostra "Login ou senha inválidos" e não entra (RF01 / RNF02)</div>
+</div></div>
+
+<div class="tela" id="wf2"><div class="barra">Tela 2 – Cadastro de cliente</div><div class="conteudo">
+  <div class="menu"><span>Agenda do dia</span><span>Novo agendamento</span><span class="sel">Clientes</span><span>Relatório</span><span class="dir">Ana · Sair</span></div>
+  <div class="cols"><div>
+    <h3>Cadastrar cliente</h3>
+    <div class="campo">Nome *<div></div></div>
+    <div class="campo">Telefone (com DDD) *<div>(11) 9____-____</div></div>
+    <div class="campo">E-mail<div></div></div>
+    <div class="btn">SALVAR CLIENTE</div>
+  </div><div>
+    <h3>Clientes cadastrados</h3>
+    <table><tr><th>Nome</th><th>Telefone</th><th>E-mail</th><th>Cadastro</th></tr>
+    <tr><td class="x">xxxxxxxx</td><td class="x">(xx) xxxxx-xxxx</td><td class="x">xxx@xxx</td><td class="x">dd/mm/aaaa</td></tr>
+    <tr><td class="x">xxxxxxxx</td><td class="x">(xx) xxxxx-xxxx</td><td class="x">—</td><td class="x">dd/mm/aaaa</td></tr>
+    <tr><td class="x">xxxxxxxx</td><td class="x">(xx) xxxxx-xxxx</td><td class="x">xxx@xxx</td><td class="x">dd/mm/aaaa</td></tr></table>
+  </div></div>
+  <div class="nota" style="left:60px;bottom:6px">Sem nome ou telefone repetido → mensagem de erro e não salva</div>
+</div></div>
+
+<div class="tela" id="wf3"><div class="barra">Tela 3 – Novo agendamento</div><div class="conteudo">
+  <div class="menu"><span>Agenda do dia</span><span class="sel">Novo agendamento</span><span>Clientes</span><span>Relatório</span><span class="dir">Ana · Sair</span></div>
+  <div style="width:460px">
+    <h3>Novo agendamento</h3>
+    <div class="campo">Cliente *<div class="sel">Selecione...</div></div>
+    <div class="campo">Serviço *<div class="sel">Corte · 30 min · R$ 40,00</div></div>
+    <div class="campo">Profissional *<div class="sel">Selecione...</div></div>
+    <div class="linha"><div class="campo">Data *<div>dd/mm/aaaa 📅</div></div><div class="campo">Hora *<div>hh:mm</div></div></div>
+    <div class="campo">Observação<div></div></div>
+    <div class="btn">CONFIRMAR AGENDAMENTO</div>
+  </div>
+  <div class="nota" style="right:50px;top:150px">Cliente, serviço e profissional vêm do banco. Se o horário do profissional já estiver ocupado → "Escolha outro horário" (RN01)</div>
+</div></div>
+
+<div class="tela" id="wf4"><div class="barra">Tela 4 – Agenda do dia</div><div class="conteudo">
+  <div class="menu"><span class="sel">Agenda do dia</span><span>Novo agendamento</span><span>Clientes</span><span>Relatório</span><span class="dir">Ana · Sair</span></div>
+  <div style="display:flex;gap:10px;align-items:center;margin-bottom:14px">
+    <h3 style="margin:0;flex:1">Agenda de dd/mm/aaaa</h3>
+    <div class="campo" style="margin:0"><div style="width:130px;margin:0">dd/mm/aaaa 📅</div></div>
+    <div class="campo" style="margin:0"><div class="sel" style="width:170px;margin:0">Todos os profissionais</div></div>
+    <div class="btn claro">CONSULTAR</div><div class="btn">+ NOVO</div>
+  </div>
+  <table><tr><th>Hora</th><th>Cliente</th><th>Telefone</th><th>Serviço</th><th>Profissional</th><th>Situação</th><th></th></tr>
+  <tr><td>09:00</td><td class="x">xxxxxx</td><td class="x">(xx) xxxxx-xxxx</td><td class="x">Corte</td><td class="x">xxxxxx</td><td>AGENDADO</td><td><span class="btn claro" style="padding:2px 8px">Cancelar</span></td></tr>
+  <tr><td>09:30</td><td class="x">xxxxxx</td><td class="x">(xx) xxxxx-xxxx</td><td class="x">Barba</td><td class="x">xxxxxx</td><td>AGENDADO</td><td><span class="btn claro" style="padding:2px 8px">Cancelar</span></td></tr>
+  <tr><td>10:00</td><td class="x"><s>xxxxxx</s></td><td class="x">(xx) xxxxx-xxxx</td><td class="x">Corte + Barba</td><td class="x">xxxxxx</td><td>CANCELADO</td><td></td></tr></table>
+  <div class="nota" style="right:40px;bottom:20px">Consulta ao banco: lista os agendamentos da data, em ordem de hora (RF04). Botão Cancelar pede confirmação (RF05)</div>
+</div></div>
+
+<div class="tela" id="wf5"><div class="barra">Tela 5 – Relatório de atendimentos</div><div class="conteudo">
+  <div class="menu"><span>Agenda do dia</span><span>Novo agendamento</span><span>Clientes</span><span class="sel">Relatório</span><span class="dir">Carlos · Sair</span></div>
+  <div style="display:flex;gap:10px;align-items:end;margin-bottom:14px">
+    <h3 style="margin:0;flex:1">Relatório de atendimentos</h3>
+    <div class="campo" style="margin:0">De<div style="width:130px">dd/mm/aaaa</div></div>
+    <div class="campo" style="margin:0">Até<div style="width:130px">dd/mm/aaaa</div></div>
+    <div class="btn claro">GERAR</div>
+  </div>
+  <table><tr><th>Profissional</th><th>Atendimentos</th><th>Faturamento previsto</th></tr>
+  <tr><td class="x">xxxxxx</td><td>n</td><td>R$ x.xxx,xx</td></tr><tr><td class="x">xxxxxx</td><td>n</td><td>R$ x.xxx,xx</td></tr>
+  <tr><th>Total</th><th>n</th><th>R$ x.xxx,xx</th></tr></table>
+  <div class="nota" style="left:300px;bottom:40px">Agendamentos cancelados não entram na soma (RF06)</div>
+</div></div>
+</body></html>

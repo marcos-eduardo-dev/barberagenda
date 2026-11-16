@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block title %}Relatório · BarberAgenda{% endblock %}
+{% block conteudo %}
+<section class="cartao">
+  <div class="cabecalho">
+    <h2>Relatório de atendimentos</h2>
+    <form method="get" class="filtro">
+      <label>De <input type="date" name="inicio" value="{{ inicio }}"></label>
+      <label>Até <input type="date" name="fim" value="{{ fim }}"></label>
+      <button type="submit" class="secundario">Gerar</button>
+    </form>
+  </div>
+  <p class="sub">Período: {{ inicio|br }} a {{ fim|br }} (agendamentos cancelados não entram)</p>
+  <table>
+    <thead><tr><th>Profissional</th><th>Atendimentos</th><th>Faturamento previsto</th></tr></thead>
+    <tbody>
+    {% for l in linhas %}
+      <tr><td>{{ l.profissional }}</td><td>{{ l.quantidade }}</td><td>{{ l.total|reais }}</td></tr>
+    {% endfor %}
+    </tbody>
+    <tfoot><tr><th>Total</th><th>{{ total_qtd }}</th><th>{{ total_valor|reais }}</th></tr></tfoot>
+  </table>
+</section>
+{% endblock %}

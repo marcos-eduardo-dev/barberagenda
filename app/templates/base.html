@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}BarberAgenda{% endblock %}</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  {% if g.usuario %}
+  <header class="topo">
+    <span class="marca">✂ BarberAgenda</span>
+    <nav>
+      <a href="{{ url_for('agenda') }}" class="{{ 'ativo' if request.endpoint == 'agenda' }}">Agenda do dia</a>
+      <a href="{{ url_for('novo_agendamento') }}" class="{{ 'ativo' if request.endpoint == 'novo_agendamento' }}">Novo agendamento</a>
+      <a href="{{ url_for('clientes') }}" class="{{ 'ativo' if request.endpoint == 'clientes' }}">Clientes</a>
+      <a href="{{ url_for('relatorio') }}" class="{{ 'ativo' if request.endpoint == 'relatorio' }}">Relatório</a>
+    </nav>
+    <span class="usuario">{{ g.usuario.nome }} · <a href="{{ url_for('logout') }}">Sair</a></span>
+  </header>
+  {% endif %}
+  <main>
+    {% for categoria, msg in get_flashed_messages(with_categories=true) %}
+      <div class="msg {{ categoria }}">{{ msg }}</div>
+    {% endfor %}
+    {% block conteudo %}{% endblock %}
+  </main>
+</body>
+</html>
