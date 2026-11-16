@@ -22,7 +22,7 @@ RAIZ = Path(__file__).resolve().parent.parent
 IMG = RAIZ / "docs" / "img"
 SAIDA = RAIZ / "docs" / "relatorio" / "Relatorio_Projeto_Integrado_BarberAgenda.docx"
 SAIDA.parent.mkdir(parents=True, exist_ok=True)
-GITHUB = "[[https://github.com/SEU-USUARIO/barberagenda]]"
+GITHUB = "https://github.com/marcos-eduardo-dev/barberagenda"
 ANO = date.today().year
 FONTE_AUTOR = f"Fonte: elaborado pelo autor ({ANO})."
 
