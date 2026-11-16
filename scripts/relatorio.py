@@ -283,19 +283,19 @@ def sumario():
 
 
 # ================================================================== CAPA
-for t in ("[[NOME DA INSTITUIÇÃO]]", "[[NOME DO CURSO]]"):
+for t in ("FACULDADE ANHANGUERA DE OSASCO", "ANÁLISE E DESENVOLVIMENTO DE SISTEMAS"):
     P(t, "center", bold=True)
 for _ in range(5):
     doc.add_paragraph()
-P("[[NOME COMPLETO DO ALUNO]]", "center", bold=True)
-P("RA: [[000000]]", "center")
+P("MARCOS EDUARDO FRANCISCO DOS SANTOS", "center", bold=True)
+P("RA: 9660744001", "center")
 for _ in range(5):
     doc.add_paragraph()
 P("BARBERAGENDA: SISTEMA DE AGENDAMENTO PARA BARBEARIA", "center", bold=True, size=14)
 P("Projeto Integrado – Relatório Técnico", "center")
 for _ in range(9):
     doc.add_paragraph()
-P("[[CIDADE]]", "center", bold=True)
+P("OSASCO", "center", bold=True)
 P(str(ANO), "center", bold=True)
 
 # ================================================================== SUMÁRIO
@@ -341,11 +341,13 @@ tabela("Fontes das informações levantadas", ["Técnica", "O que foi feito", "I
      "demonstrações.",
      "Agenda separada por profissional; cadastro de cliente com telefone como contato principal; "
      "cada serviço tem duração e preço; bloqueio de horários já ocupados; relatórios de atendimentos."],
-    ["Experiência própria como cliente", "[[Relato da sua experiência como cliente de barbearia – ajuste "
-     "este texto à sua realidade.]]",
-     "[[Ex.: o atendente marca pelo WhatsApp e anota num caderno; já houve encaixe de dois clientes no "
-     "mesmo horário; o cliente é identificado pelo nome e telefone; o horário de funcionamento é das 9h "
-     "às 19h.]]"],
+    ["Experiência própria como cliente", "Relato da minha experiência como cliente de uma barbearia de "
+     "bairro em Osasco, que frequento há cerca de três anos, em média a cada 20 dias.",
+     "A marcação é feita pelo WhatsApp e anotada em um caderno no balcão. Em duas ocasiões cheguei no "
+     "horário combinado e havia outro cliente marcado com o mesmo barbeiro, e precisei esperar cerca de "
+     "40 minutos. O atendente identifica o cliente pelo nome e telefone; cada serviço leva um tempo "
+     "diferente (corte, cerca de 30 minutos; corte e barba, cerca de 1 hora). A barbearia tem três "
+     "barbeiros e funciona das 9h às 19h."],
 ], [3.6, 6.2, 6.2])
 P("Com base nessas fontes foram definidas as regras de negócio do sistema: (RN01) um profissional não pode "
   "ter dois agendamentos ativos com horários sobrepostos, considerando a duração do serviço; (RN02) não é "
@@ -683,8 +685,14 @@ P("A principal dificuldade foi a regra de conflito de horário. A primeira ideia
   "A solução foi calcular o intervalo de cada agendamento a partir da duração do serviço e verificar a "
   "sobreposição de intervalos, o que foi confirmado pelo caso de teste CT05. Outro ponto de atenção foi a "
   "segurança: as senhas são guardadas como hash e todas as consultas usam parâmetros.")
-P("[[Complete com a sua experiência pessoal: o que foi mais difícil para você, o que aprendeu sobre UML, "
-  "banco de dados ou Python e o que faria diferente.]]")
+P("Do ponto de vista pessoal, o maior desafio foi a modelagem. Como já tenho mais contato com "
+  "programação em Java, eu tinha o costume de começar direto pelo código, e este trabalho me mostrou o "
+  "valor de desenhar antes: o diagrama de sequência, por exemplo, revelou que a validação precisava "
+  "consultar a duração do serviço antes de verificar o conflito, algo que eu só teria percebido depois "
+  "de errar na implementação. Também foi a primeira vez que desenvolvi com Python e Flask, o que exigiu "
+  "estudar a documentação, mas mostrou que os conceitos de orientação a objetos e de banco de dados "
+  "relacional se aplicam da mesma forma em outra linguagem. Se fosse refazer, escreveria os casos de "
+  "teste junto com os requisitos, desde a Fase 1, pois eles ajudam a deixar cada regra mais clara.")
 P("Como trabalhos futuros, o sistema pode receber o cadastro de profissionais e serviços pela interface, a "
   "marcação de atendimento como concluído, o envio de lembrete ao cliente e uma tela para o próprio "
   "cliente consultar horários livres.")
@@ -702,7 +710,6 @@ refs = [
     "PRESSMAN, Roger S.; MAXIM, Bruce R. **Engenharia de software**: uma abordagem profissional. 8. ed. Porto Alegre: AMGH, 2016.",
     "SOMMERVILLE, Ian. **Engenharia de software**. 10. ed. São Paulo: Pearson Education do Brasil, 2018.",
     f"SQLITE. **SQLite documentation**. [S. l.], 2025. Disponível em: https://www.sqlite.org/docs.html. Acesso em: {date.today().day} nov. {ANO}.",
-    "[[SOBRENOME, Nome do professor. **Título do material de aula**. Cidade: Instituição, ano. Material didático da disciplina X.]]",
 ]
 for r in refs:
     p = P(r, "left", indent=False)
