@@ -123,6 +123,7 @@ def legenda(texto, fonte=FONTE_AUTOR):
     p.alignment = WD_ALIGN_PARAGRAPH.CENTER
     p.paragraph_format.line_spacing = 1.0
     p.paragraph_format.space_after = Pt(0)
+    p.paragraph_format.keep_with_next = True
     runs(p, texto, size=10, bold=True)
     f = doc.add_paragraph()
     f.alignment = WD_ALIGN_PARAGRAPH.CENTER
@@ -204,6 +205,15 @@ def tabela(titulo, cab, linhas, larguras=None, fonte=FONTE_AUTOR, tam=10):
                 par.paragraph_format.first_line_indent = None
             if larguras:
                 cel.width = Cm(larguras[i])
+    for cel in t.rows[-1].cells:              # última linha fica junto da "Fonte:"
+        for par in cel.paragraphs:
+            par.paragraph_format.keep_with_next = True
+    if larguras:
+        t.autofit = False
+        for i, w in enumerate(larguras):
+            t.columns[i].width = Cm(w)
+        lay = OxmlElement("w:tblLayout"); lay.set(qn("w:type"), "fixed")
+        t._tbl.tblPr.append(lay)
     f = doc.add_paragraph()
     f.alignment = WD_ALIGN_PARAGRAPH.LEFT
     f.paragraph_format.line_spacing = 1.0
@@ -234,6 +244,8 @@ def codigo(texto, titulo, arquivo):
         r.font.name = "Consolas"
         r.font.size = Pt(8.5)
         r._element.rPr.rFonts.set(qn("w:eastAsia"), "Consolas")
+        if i == len(linhas) - 1:
+            par.paragraph_format.keep_with_next = True
     f = doc.add_paragraph()
     f.paragraph_format.line_spacing = 1.0
     f.paragraph_format.space_after = Pt(12)
@@ -301,10 +313,22 @@ P(str(ANO), "center", bold=True)
 # ================================================================== SUMÁRIO
 doc.add_paragraph().add_run().add_break(WD_BREAK.PAGE)
 P("SUMÁRIO", "center", bold=True)
+from docx.enum.style import WD_STYLE_TYPE
+for nivel, recuo in ((1, 0), (2, 0.6)):
+    try:
+        ts = doc.styles[f"toc {nivel}"]
+    except KeyError:
+        ts = doc.styles.add_style(f"toc {nivel}", WD_STYLE_TYPE.PARAGRAPH)
+    ts.base_style = doc.styles["Normal"]
+    ts.paragraph_format.line_spacing = 1.15
+    ts.paragraph_format.space_after = Pt(3)
+    ts.paragraph_format.left_indent = Cm(recuo)
 sumario()
 
 # ================================================================== 1 APRESENTAÇÃO
-H1("1 Apresentação do tema")
+# nova seção: capa e sumário ficam sem número de página (ABNT); a contagem continua
+doc.add_section(WD_SECTION.NEW_PAGE)
+H1("1 Apresentação do tema", quebra=False)
 P("Este relatório apresenta o desenvolvimento do **BarberAgenda**, um sistema web para controlar "
   "os agendamentos de uma barbearia de pequeno porte. O sistema permite cadastrar clientes, marcar "
   "horários com um profissional para um serviço (corte, barba etc.), consultar a agenda do dia, "
@@ -717,7 +741,8 @@ for r in refs:
     p.paragraph_format.space_after = Pt(12)
 
 # numeração de página no rodapé (à direita)
-for s in doc.sections:
+for s in doc.sections[1:]:
+    s.footer.is_linked_to_previous = False
     fp = s.footer.paragraphs[0]
     fp.alignment = WD_ALIGN_PARAGRAPH.RIGHT
     r = fp.add_run()
